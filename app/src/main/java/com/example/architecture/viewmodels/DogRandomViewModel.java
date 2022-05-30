@@ -13,16 +13,16 @@ import com.example.architecture.models.DogRepository;
 
 public class DogRandomViewModel extends AndroidViewModel {
 
-    private DogRepository dogRepository;
+    private DogRepository dogRepository = new DogRepository();;
 
+
+    private LiveData<DogRandomResponse> dogRandomLiveData = new MutableLiveData<>();
     public LiveData<DogRandomResponse> getDogRandomLiveData() {
         return dogRandomLiveData;
     }
-
-    private LiveData<DogRandomResponse> dogRandomLiveData = new MutableLiveData<>();
     public DogRandomViewModel(@NonNull Application application) {
         super(application);
-        dogRandomLiveData = dogRepository.getDogLiveData();
+        this.dogRandomLiveData = dogRepository.getDogLiveData();
     }
     public void fetchDogData(){
         dogRandomLiveData = dogRepository.getRandomDogData();

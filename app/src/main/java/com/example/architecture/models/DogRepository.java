@@ -11,7 +11,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DogRepository {
-    private DogService dogService;
+    private final DogService dogService;
 
 
     public MutableLiveData<DogRandomResponse> getDogLiveData() {
@@ -28,7 +28,10 @@ public class DogRepository {
         dogService.fetchRandomDog().enqueue(new Callback<DogRandomResponse>() {
             @Override
             public void onResponse(Call<DogRandomResponse> call, Response<DogRandomResponse> response) {
-                dogLiveData.setValue(response.body());
+                if (response.body() != null){
+                    dogLiveData.setValue(response.body());
+                }
+
             }
 
             @Override
